@@ -34,22 +34,22 @@ def get_emojis_from_dicts(jsondicts):
                 if not name in reactdict:
                     reactdict[name] = 0
                 reactdict[name] += count
-        except:
+        except KeyError:
             pass
 
         # Get emojis from text (must use rich text for this)
-        try:
-            for elem in jd['blocks'][0]['elements'][0]['elements']:
-                try:
-                    if elem['type'] == 'emoji':
-                        name = elem['name']
-                        if not name in reactdict:
-                            reactdict[name] = 0
-                        reactdict[name] += 1
-                except:
-                    pass
-        except:
-            pass
+        #try:
+        #    for elem in jd['blocks'][0]['elements'][0]['elements']:
+        #        try:
+        #            if elem['type'] == 'emoji':
+        #                name = elem['name']
+        #                if not name in reactdict:
+        #                    reactdict[name] = 0
+        #                reactdict[name] += 1
+        #        except KeyError:
+        #            pass
+        #except KeyError:
+        #    pass
     return reactdict
 
 #def strings_to_dictionary(strings):
@@ -73,43 +73,35 @@ def get_emojis_from_dicts(jsondicts):
 #    return { x : y for x, y in d.items() if y != 0 }
 
 def get_wcstr_from_file(filename):
-    print("Process file", filename)
+    #print("Process file", filename)
     ds = get_json_dict(filename)
     return get_text_from_dicts(ds, extract_data)
     
 def get_emojis_from_file(filename):
-    print("Process file", filename)
+    #print("Process file", filename)
     ds = get_json_dict(filename)
     return get_emojis_from_dicts(ds)
 
-def get_wcstr_from_folder(foldername):
+def get_pathinfo_from_file(file):
+    [ignore, root, subroot, channel, filename] = file.split('/')
+    return [root, subroot, channel, filename]
+
+
+def get_wcstr_from_files(files):
     wcstr = ""
 
-    files = get_files_below(foldername, '.json')
     for file in files:
         wcstr += get_wcstr_from_file(file)
     
     return wcstr
 
-def get_emojis_from_folder(foldername):
+def get_emojis_from_files(files):
     emojidict = Counter(dict())
 
-    files = get_files_below(foldername, '.json')
     for file in files:
         emojis = Counter(get_emojis_from_file(file))
         emojidict = emojidict + emojis
     return emojidict
-
-def get_emojis_date_from_folder(foldername):
-    emoji_dates = []
-
-    files = get_files_below(foldername, '.json')
-    for file in files:
-        emojis = get_emojis_from_file(file)
-        date = file[-6:-16:-1][::-1]
-        date = dt.datetime.strptime(date, "%Y-%m-%d")
-        emoji_dates.append((emojis, date))
-    return emoji_dates
 
 def get_boring_words():
     words = []
@@ -118,16 +110,35 @@ def get_boring_words():
             words.append(line[:-1])
     return words
 
+def get_folders_below(path):
+    folders = []
+    for r, d, f in os.walk(path):
+        for dir in d:
+            folders.append(dir)
+    return folders
+
 def get_files_below(path, ext):
     files = []
-    for r, d, f in os.walk(os.getcwd()):
+    for r, d, f in os.walk(path):
         for file in f:
             if ext in file:
                 files.append(os.path.join(r, file))
     return files
 
+emojigifs = [ "bossgirl_mari", "fidget", "angry-wilhelm", "magnus_god", "spinningsimen" ]
+
 def get_images(emojinames):
     imgs = []
     for name, i in zip(emojinames, range(len(emojinames))):
-        imgs.append(image.imread("emojis/" + name + ".jpg"))
+        imgpath = "emojis/" + name
+        if name in emojigifs:
+            imgpath += ".gif"
+        else:
+            imgpath += ".png"
+        imgs.append(image.imread(imgpath))
+
     return imgs
+
+def get_datestr_from_datetime(datetime):
+    # Converts a class into a string and removes non-dates
+    return datetime.__str__().split(' ')[0]
