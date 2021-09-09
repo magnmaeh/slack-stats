@@ -1,5 +1,9 @@
 # slack-stats
-This project plots the number of occurances of each emoji used within a slack workspace. Naturally, it inputs slack workspace data; it is shown how this can be downloaded below. The script does two things separately: (1) processes the workspace data and stores the results to files and (2) plots the data using the emojis themselves as data points.
+This project plots the number of occurances of each emoji used within a slack workspace. Naturally, it inputs slack workspace data; it is shown how this can be downloaded below. The script does two things separately: (1) processes the workspace data and stores the results to files and (2) plots the data using the N most used emojis themselves as data points.
+
+The point of the repository is to be able to view which emojis have been used the most over a certain time period. This may be really interesting if (1) the workspace is old or/and (2) there are custom emojis in use. An example of what a final plot may look like:
+
+![Example output](example-output.png)
 
 ## Requirements
 `pip install -r requirements.txt`
