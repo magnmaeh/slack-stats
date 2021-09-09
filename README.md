@@ -1,2 +1,17 @@
-# slack-wordcloud
-This repository will convert downloaded files from a Slack workspace from .json format into a .csv format, which can be used by a wordcloud to plot the data.
+# slack-stats
+This project plots the number of occurances of each emoji used within a slack workspace. Naturally, it inputs slack workspace data; it is shown how this can be downloaded below. The script does two things separately: (1) processes the workspace data and stores the results to files and (2) plots the data using the emojis themselves as data points.
+
+
+## Requirements
+`pip install -r requirements.txt`
+
+## How to use
+First, you will need to fetch some data. 
+
+Get emojis
+Get slackdata
+
+python3 sadak -p -g
+
+## Configuration
+See config.yaml for user configuration.

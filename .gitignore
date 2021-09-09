@@ -1,3 +1,5 @@
-data*
-emojis
+
+emojis/*
+
 __pycache__
+token
