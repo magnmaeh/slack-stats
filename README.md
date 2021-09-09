@@ -1,13 +1,17 @@
 # slack-stats
-This project plots the number of occurances of each emoji used within a slack workspace. Naturally, it inputs slack workspace data; it is shown how this can be downloaded below. The script does two things separately: (1) processes the workspace data and stores the results to files and (2) plots the data using the emojis themselves as data points.
+This project plots the number of occurances of each emoji used within a slack workspace. Naturally, it inputs slack workspace data; it is shown how this can be downloaded below. The script does two things separately: (1) processes the workspace data and stores the results to files and (2) plots the data using the N most used emojis themselves as data points.
+
+The point of the repository is to be able to view which emojis have been used the most over a certain time period. This may be really interesting if (1) the workspace is old or/and (2) there are custom emojis in use. An example of what a final plot may look like:
+
+![Example output](example-output.png)
 
 ## Requirements
 `pip install -r requirements.txt`
 
 ## How to use
 1. `./setup-folders.sh`
-2. First, you will need to fetch some data.
-   * To fetch all messages sent within your Slack workspace, see https://slack.com/intl/en-no/help/articles/201658943-Export-your-workspace-data. This data needs to be put into `data/raw-data/`. Given the zip file from Slack, unzip it there and remove any non-relevant folders. There should now be one folder for each channel you have extracted.
+2. Fetch some data:
+   * To fetch all messages sent within your Slack workspace, see https://slack.com/intl/en-no/help/articles/201658943-Export-your-workspace-data. This data needs to be put into `data/raw-data/`. Given the zip file from Slack, unzip it there and remove any non-relevant folders. There should now be one folder for each channel you have extracted. Both .png and .gif files are accepted. Others may be accepted as well, but to my knowledge Slack typically has .png files.
    * To fetch the emojis you want to plot effeciently, see https://gist.github.com/lmarkus/8722f56baf8c47045621. These emoji files should be put into `emojis/`
 3. Configure the `plot-config.yaml` to your liking.
 4. `python3 python/main.py --help` shows usage.
@@ -15,4 +19,3 @@ This project plots the number of occurances of each emoji used within a slack wo
 
 ## Configuration
 See config.yaml for user configuration.
-
