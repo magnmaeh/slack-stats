@@ -6,7 +6,7 @@ This project plots the number of occurances of each emoji used within a slack wo
 
 ## How to use
 1. `./setup-folders.sh`
-2. First, you will need to fetch some data.
+2. Fetch some data:
    * To fetch all messages sent within your Slack workspace, see https://slack.com/intl/en-no/help/articles/201658943-Export-your-workspace-data. This data needs to be put into `data/raw-data/`. Given the zip file from Slack, unzip it there and remove any non-relevant folders. There should now be one folder for each channel you have extracted. Both .png and .gif files are accepted. Others may be accepted as well, but to my knowledge Slack typically has .png files.
    * To fetch the emojis you want to plot effeciently, see https://gist.github.com/lmarkus/8722f56baf8c47045621. These emoji files should be put into `emojis/`
 3. Configure the `plot-config.yaml` to your liking.
