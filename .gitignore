@@ -1,5 +1,4 @@
-
+data/*
 emojis/*
-
 __pycache__
-token
+gittoken
